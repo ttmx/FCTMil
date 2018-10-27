@@ -60,7 +60,7 @@ class Main{
          
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
-         
+        gameCommands(scan, milObj);
     }
     public static void gamePlay(Scanner scan, FCTMil milObj){
          
