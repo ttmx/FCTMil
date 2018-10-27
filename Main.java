@@ -9,8 +9,7 @@ class Main{
     private static final String AJUDA = "ajuda";
     private static final String NOVOJOGO = "novo";
     private static final String FIM = "fim";
-    private static boolean wantToLeave = false;
-    private static boolean wantToEnd = false;
+    private static boolean wantToLeave,wantToEnd = false;
     
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -20,19 +19,21 @@ class Main{
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void mainCommands(Scanner scan,FCTMil milObj){
         while(!wantToLeave){
-        System.out.print("> ");
-        String command = scan.next();
-        switch(command.toLowerCase()){
-            case SAIR:mainLeave(scan, milObj); 
-                break;
-            case AJUDA:mainHelp(scan, milObj);
-                break;
-            case NOVOJOGO:gameStart(scan, milObj);
-                break;
-            default: 
-                System.out.println("Comando inexistente.");
-                break;
-        }}
+            System.out.print("> ");
+            String command = scan.next();
+            switch(command.toLowerCase()){
+                case SAIR:mainLeave(scan, milObj); 
+                    break;
+                case AJUDA:mainHelp(scan, milObj);
+                    break;
+                case NOVOJOGO:gameStart(scan, milObj);
+                    break;
+                default: 
+                    System.out.println("Comando inexistente.");
+                    break;
+                }
+            scan.nextLine();
+                }
         wantToLeave = false;
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
@@ -64,6 +65,8 @@ class Main{
         wantToEnd = true;
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
+        double prizePool = scan.nextDouble();
+        milObj.newGame(prizePool);
         
     }
     public static void gamePlay(Scanner scan, FCTMil milObj){
