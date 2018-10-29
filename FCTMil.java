@@ -15,5 +15,6 @@ class FCTMil{
         winnern11 = 0;
         winnern12 = 0;
         winnern13 = 0;
+        
     }
 }
