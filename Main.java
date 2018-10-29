@@ -2,7 +2,7 @@
 /* Todas as funcoes com main no inicio do nome referem-se ao que acontece antes de haver um jogo iniciado,
 *  as com game no inicio serao entao as ja dentro do jogo.
 */
-import java.util.Scanner;;
+import java.util.Scanner;
 class Main{
     private static final String SAIR = "sai";
     private static final String JOGAR = "joga";
@@ -31,28 +31,34 @@ class Main{
                 default: 
                     System.out.println("Comando inexistente.");
                     break;
-                }
+            }
             scan.nextLine();
-                }
+        }
         wantToLeave = false;
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void gameCommands(Scanner scan, FCTMil milObj){
         while(!wantToEnd){
-        System.out.print("FCTMILHOES> ");
-        String command = scan.next();
-        switch(command.toLowerCase()){
-            case FIM:gameEnd(scan,milObj);
-                break;
-            case JOGAR:gamePlay(scan,milObj);
-                break;
-            case AJUDA:gameHelp(scan,milObj);
-                break;
-            default: System.out.println("Comando inexistente.");
-                break;
-        }}
+            System.out.print("FCTMILHOES> ");
+            String command = scan.next();
+            switch(command.toLowerCase()){
+                case FIM:
+                    gameEnd(scan,milObj);
+                    break;
+                case JOGAR:
+                    gamePlay(scan,milObj);
+                    break;
+                case AJUDA:
+                    gameHelp(scan,milObj);
+                    break;
+                default:
+                    System.out.println("Comando inexistente.");
+                    break;
+            }
+            scan.nextLine();
+        }
         wantToEnd = false;
-     }
+    }
     //Funcoes de interface
 
     public static void mainHelp(Scanner scan, FCTMil milObj){
