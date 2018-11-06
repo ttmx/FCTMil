@@ -11,5 +11,6 @@ class FCTMil{
             winnerArray[i] = 0;
         }
         System.out.println(Arrays.toString(winnerArray));
+        System.out.println(prizePool);
     }
 }
