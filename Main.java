@@ -9,7 +9,6 @@ class Main{
     private static final String AJUDA = "ajuda";
     private static final String NOVOJOGO = "novo";
     private static final String FIM = "fim";
-    private static boolean wantToLeave,wantToEnd = false;
     
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -18,7 +17,7 @@ class Main{
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void mainCommands(Scanner scan,FCTMil milObj){
-        while(!wantToLeave){
+        while(milObj.inMenu){
             System.out.print("> ");
             String command = scan.next();
             switch(command.toLowerCase()){
@@ -32,13 +31,11 @@ class Main{
                     System.out.println("Comando inexistente.");
                     break;
             }
-            scan.nextLine();
         }
-        wantToLeave = false;
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void gameCommands(Scanner scan, FCTMil milObj){
-        while(!wantToEnd){
+        while(milObj.inGame){
             System.out.print("FCTMILHOES> ");
             String command = scan.next();
             switch(command.toLowerCase()){
@@ -55,9 +52,7 @@ class Main{
                     System.out.println("Comando inexistente.");
                     break;
             }
-            scan.nextLine();
         }
-        wantToEnd = false;
     }
     //Funcoes de interface
 
@@ -65,18 +60,23 @@ class Main{
         System.out.println(NOVOJOGO +" - Novo jogo dando um valor inicial\n"+ SAIR +" - Termina a execucao do programa\n"+ AJUDA +" - Mostra os comandos existentes");
     }
     public static void mainLeave(Scanner scan, FCTMil milObj){
-        wantToLeave = true;
+        milObj.inMenu = false;
     }
     public static void gameEnd(Scanner scan, FCTMil milObj){
-        wantToEnd = true;
+        milObj.inGame = false;
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
         double prizePool = scan.nextDouble();
         milObj.newGame(prizePool);
+        gameCommands(scan,milObj);
         
     }
     public static void gamePlay(Scanner scan, FCTMil milObj){
-        
+        int[] bets = new int[7];
+        for(int i = 0;i<7;i++){
+            bets[i] = scan.nextInt();
+        }
+        milObj.bet(bets);
     }
     public static void gameHelp(Scanner scan, FCTMil milObj){
         System.out.println(JOGAR + " - Simula uma aposta, dando uma chave\n" + FIM + " - Termina o jogo em curso\n" + AJUDA + " - Mostra os comandos existentes");
