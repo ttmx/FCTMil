@@ -76,7 +76,7 @@ class Main{
         for(int i = 0;i<7;i++){
             bets[i] = scan.nextInt();
         }
-        milObj.bet(bets);
+        System.out.println("Obrigado pela aposta.  Premio de nivel: "+milObj.bet(bets));
     }
     public static void gameHelp(Scanner scan, FCTMil milObj){
         System.out.println(JOGAR + " - Simula uma aposta, dando uma chave\n" + FIM + " - Termina o jogo em curso\n" + AJUDA + " - Mostra os comandos existentes");

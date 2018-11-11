@@ -14,7 +14,6 @@ class FCTMil{
     key = new int[7];
     inGame = false;
     inMenu = true;
-    prizes = new int[6][3];
     }
     /**
      * @param prizePool game prize pool
@@ -40,6 +39,7 @@ class FCTMil{
         for(int i = 0; i<2;i++){
             key[i] = (int)Math.random()*13; 
         }
+        System.out.println((int)Math.random()*51 + "Key is: " + Arrays.toString(key));
         return key;
     }
     private int prize(int[] key,int[] bet){
@@ -49,7 +49,6 @@ class FCTMil{
             for(int a = 0;a<5;a++){
                 if(key[i] == bet[a]){
                     hitNums++;
-                    break;
                 }
             }
         }
@@ -57,11 +56,11 @@ class FCTMil{
             for(int a = 5;a<7;a++){
                 if(key[i] == bet[a]){
                     hitStars++;
-                    break;
                 }
             }
         }
         int prizeSelector = 10*hitNums + hitStars;
+        System.out.println("prizeSel = " + prizeSelector);
         switch(prizeSelector){
             case 52:
                 prizeSelector = 1;
@@ -101,6 +100,9 @@ class FCTMil{
                 break;
             case 20:
                 prizeSelector = 13;
+                break;
+            default:
+                prizeSelector = 15;
                 break;
         }
         return prizeSelector;
