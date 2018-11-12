@@ -17,7 +17,7 @@ class Main{
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void mainCommands(Scanner scan,FCTMil milObj){
-        while(milObj.inMenu){
+        while(milObj.getMenuState()){
             System.out.print("> ");
             String command = scan.next();
             switch(command.toLowerCase()){
@@ -35,7 +35,7 @@ class Main{
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
     public static void gameCommands(Scanner scan, FCTMil milObj){
-        while(milObj.inGame){
+        while(milObj.getGameState()){
             System.out.print("FCTMILHOES> ");
             String command = scan.next();
             switch(command.toLowerCase()){
