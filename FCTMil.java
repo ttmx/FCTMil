@@ -50,7 +50,6 @@ class FCTMil{
         if (prizeNum!=0)
         winnerArray[prizeNum-1]++;
         return prizeNum;
-a
     }
     // Return current key array
     private int[] getKey(){
