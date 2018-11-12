@@ -138,4 +138,22 @@ public String exit(){
     return exitString;
     }
 
+public boolean getGameState(){
+    return inGame;
+    }
+public trueGame(){
+    inGame = true;
+    }
+public falseGame(){
+    inGame = false;
+    }
+public boolean getMenuState(){
+    return inMenu;
+    }
+public trueMenu(){
+    inMenu = true;
+    }
+public falseMenu(){
+    inMenu = false;
+    }
 }
