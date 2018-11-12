@@ -60,10 +60,10 @@ class Main{
         System.out.println(NOVOJOGO +" - Novo jogo dando um valor inicial\n"+ SAIR +" - Termina a execucao do programa\n"+ AJUDA +" - Mostra os comandos existentes");
     }
     public static void mainLeave(Scanner scan, FCTMil milObj){
-        milObj.inMenu = false;
+        milObj.falseMenu();
     }
     public static void gameEnd(Scanner scan, FCTMil milObj){
-        milObj.inGame = false;
+        milObj.falseGame();
         System.out.print(milObj.exit());
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
