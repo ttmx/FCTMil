@@ -60,6 +60,7 @@ class Main{
         System.out.println(NOVOJOGO +" - Novo jogo dando um valor inicial\n"+ SAIR +" - Termina a execucao do programa\n"+ AJUDA +" - Mostra os comandos existentes");
     }
     public static void mainLeave(Scanner scan, FCTMil milObj){
+        
         milObj.falseMenu();
     }
     public static void gameEnd(Scanner scan, FCTMil milObj){
@@ -84,7 +85,7 @@ class Main{
         if (prizeLevel != 0){
             System.out.println("Obrigado pela aposta.  Premio de nivel: "+prizeLevel);
         }else {
-            System.out.println("Chave incorrecta.");
+            System.out.println("Obrigado pela aposta.");
         }
     }
     public static void gameHelp(Scanner scan, FCTMil milObj){

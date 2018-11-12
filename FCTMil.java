@@ -6,8 +6,8 @@ class FCTMil{
     private Double prizePool;
     private int hitNums;
     private int hitStars;
-    public boolean inGame;
-    public boolean inMenu;
+    private boolean inGame;
+    private boolean inMenu;
     private IteratorInt starIte;
     private IteratorInt numIte;
     Key keyC = new Key();
@@ -23,7 +23,7 @@ class FCTMil{
      */
     public void newGame(Double prizePool){
         this.prizePool = prizePool;
-        for(int i=1; i<winnerArray.length; i++){
+        for(int i=0; i<winnerArray.length; i++){
             winnerArray[i] = 0;
         }
         starIte = keyC.criaIteratorStars();
@@ -32,14 +32,29 @@ class FCTMil{
     }
     // Betting is directed here
     public int bet(int[] bets){
+        boolean duplicate = false;
+        int[] currentKey = getKey();
         this.bets = bets;
         //System.out.println(Arrays.toString(bets));
-        int prizeNum = prize(getKey(),bets);
+        for(int i = 0; i<5;i++){
+            for(int a = 0; a<5;i++){
+                if (i!=a)
+                if(bets[i]==bets[a]){
+                    a = 5;
+                    i = 5;
+                    duplicate = true;
+                }
+            }
+        }
+        int prizeNum = prize(currentKey,bets);
+        if (prizeNum!=0)
         winnerArray[prizeNum-1]++;
         return prizeNum;
+
     }
     // Return current key array
     private int[] getKey(){
+
         for(int i = 0;numIte.hasNextInt();i++){
             key[i]=numIte.nextInt();
         }
@@ -50,20 +65,20 @@ class FCTMil{
         starIte.reinitialize();
         return key;
     }
-    
+    // Takes in an int[] with the correct key and another one with the placed bet and outputsan int with the prize level, or 0 if theres is no prize
     private int prize(int[] key,int[] bet){
         hitNums = 0;
         hitStars = 0;
         for(int i = 0;i<5;i++){
             for(int a = 0;a<5;a++){
-                if(key[i] == bet[a]){
+                if(key[a] == bet[i]){
                     hitNums++;
                 }
             }
         }
         for(int i = 5;i<7;i++){
             for(int a = 5;a<7;a++){
-                if(key[i] == bet[a]){
+                if(key[a] == bet[i]){
                     hitStars++;
                 }
             }
@@ -116,44 +131,45 @@ class FCTMil{
         }
         return prizeSelector;
     }
-public String exit(){
-    String exitString = "";
-    String formattedPercent = "";
-    Double[] percent = {43.2,4.15,1.92,1.45,1.48,1.67,1.38,1.75,2.85,4.1,4.95,13.85,17.25};
-    // Replace percent array with each prizes value
-    for (int i = 0;percent.length>i;i++){
-        percent[i]=prizePool*percent[i]*0.01/winnerArray[i];
-    }
-    //System.out.println(Arrays.toString(percent));
-    for (int i = 0;winnerArray.length>i;i++){
-        if(percent[i]!=1/0f){
-            formattedPercent = String.format("%.2f",percent[i]).replaceAll(",",".");
-            // Nivel: 1 Jogadores: 999 Valor premio: 999999,99 Euros
-            exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + " Valor premio: " + formattedPercent + " Euros \n";
-        }else{
-            exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + "\n";
+    public String exit(){
+        String exitString = "";
+        String formattedNumber = "";
+        Double[] percent = {43.2,4.15,1.92,1.45,1.48,1.67,1.38,1.75,2.85,4.1,4.95,13.85,17.25};
+        // Replace percent array with each prizes value
+        for (int i = 0;percent.length>i;i++){
+            percent[i]=prizePool*percent[i]*0.01/winnerArray[i];
         }
+        //System.out.println(Arrays.toString(percent));
+        for (int i = 0;winnerArray.length>i;i++){
+            if(percent[i]!=1/0f){
+                formattedNumber = String.format("%.2f",percent[i]).replaceAll(",",".");
+                // Nivel: 1 Jogadores: 999 Valor premio: 999999,99 Euros
+                exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + " Valor premio: " + formattedNumber+ " Euros \n";
+            }else{
+                exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + "\n";
+            }
+            
+        }
+        for (int i=0; i<percent.length;i++){
+            if (percent[i]!=1/0f)
+            prizePool -= percent[i];
+        }
+        formattedNumber = String.format("%.2f",prizePool).replaceAll(",",".");
+        exitString += "Valor acumulado: " + formattedNumber +" Euros. Ate a proxima\n";
+        //System.out.println("exitString: " + exitString);
+        return exitString;
     }
-    //System.out.println("exitString: " + exitString);
-    return exitString;
+    // Game state operators
+    public boolean getGameState(){
+        return inGame;
     }
-
-public boolean getGameState(){
-    return inGame;
+    public void falseGame(){
+        inGame = false;
     }
-public trueGame(){
-    inGame = true;
+    public boolean getMenuState(){
+        return inMenu;
     }
-public falseGame(){
-    inGame = false;
-    }
-public boolean getMenuState(){
-    return inMenu;
-    }
-public trueMenu(){
-    inMenu = true;
-    }
-public falseMenu(){
-    inMenu = false;
+    public void falseMenu(){
+        inMenu = false;
     }
 }
