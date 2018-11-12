@@ -10,7 +10,7 @@ public class Key {
 	private static final int [][]STARS = {{4,5},{4,6},{4,10},{9,10},{1,5},{6,7},{1,11},{5,8},{9,10},{1,12}};
 	
 	// Jogo corrente  incrementa em 1 cada vez que e criado um jogo 
-	private static  int CURRENTGAME=0;
+	private static int CURRENTGAME=0;
 	
 	// Identificador de jogo
 	private int idGame;

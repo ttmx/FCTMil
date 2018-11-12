@@ -64,10 +64,14 @@ class Main{
     }
     public static void gameEnd(Scanner scan, FCTMil milObj){
         milObj.inGame = false;
+        System.out.print(milObj.exit());
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
         double prizePool = scan.nextDouble();
         milObj.newGame(prizePool);
+        System.out.print("Jogo iniciado. Valor do premio: ");
+        System.out.printf("%.2f",prizePool);
+        System.out.println(" Euros.");
         gameCommands(scan,milObj);
         
     }
@@ -76,7 +80,12 @@ class Main{
         for(int i = 0;i<7;i++){
             bets[i] = scan.nextInt();
         }
-        System.out.println("Obrigado pela aposta.  Premio de nivel: "+milObj.bet(bets));
+        int prizeLevel = milObj.bet(bets);
+        if (prizeLevel != 0){
+            System.out.println("Obrigado pela aposta.  Premio de nivel: "+prizeLevel);
+        }else {
+            System.out.println("Chave incorrecta.");
+        }
     }
     public static void gameHelp(Scanner scan, FCTMil milObj){
         System.out.println(JOGAR + " - Simula uma aposta, dando uma chave\n" + FIM + " - Termina o jogo em curso\n" + AJUDA + " - Mostra os comandos existentes");
