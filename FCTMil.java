@@ -1,64 +1,81 @@
 //import java.util.Arrays;
 class FCTMil{
     private int[] winnerArray;
-    private int[] bets;
-    private int[] key;
     private Double prizePool;
-    private int hitNums;
-    private int hitStars;
     private boolean inGame;
     private boolean inMenu;
     private IteratorInt starIte;
     private IteratorInt numIte;
-    Key keyC = new Key();
+    private final int STARS;
+    private final int NUMBERS;
+    Key keyC;
     public FCTMil(){
     winnerArray = new int[13];
-    bets = new int[7];
-    key = new int[7];
     inGame = false;
     inMenu = true;
+    STARS = 2;
+    NUMBERS = 5;
+    prizePool = 0d;
     }
     /**
      * @param prizePool game prize pool
      */
     public void newGame(Double prizePool){
-        this.prizePool = prizePool;
+        this.prizePool += prizePool;
         for(int i=0; i<winnerArray.length; i++){
             winnerArray[i] = 0;
         }
+        keyC = new Key();
         starIte = keyC.criaIteratorStars();
         numIte = keyC.criaIteratorNumbers();
         inGame = true;
     }
     // Betting is directed here
     public int bet(int[] bets){
-        boolean duplicate = false;
+        boolean invalid = isValid(bets);
         int[] currentKey = getKey();
-        this.bets = bets;
         //System.out.println(Arrays.toString(bets));
-        for(int i = 0; i<5;i++){
-            for(int a = 0; a<5;i++){
+        int prizeNum = -1;
+        if (!invalid)
+        prizeNum = prize(currentKey,bets);
+        if (prizeNum>0){
+            winnerArray[prizeNum-1]++;
+        }
+        //System.out.println(Arrays.toString(winnerArray));
+        return prizeNum;
+    }
+    private boolean isValid(int[] key){
+        boolean invalid = false;
+        for(int i = 0; i<NUMBERS;i++){
+            for(int a = 0; a<NUMBERS;a++){
                 if (i!=a)
-                if(bets[i]==bets[a]){
-                    a = 5;
-                    i = 5;
-                    duplicate = true;
+                if(key[i]==key[a]){
+                    a = NUMBERS;
+                    i = NUMBERS;
+                    invalid = true;
                 }
             }
         }
-        int prizeNum = prize(currentKey,bets);
-        if (prizeNum!=0)
-        winnerArray[prizeNum-1]++;
-        return prizeNum;
+        for(int i = 0; i<NUMBERS;i++){
+            if (key[i]>50 ||key[i]<1)
+            invalid = true;
+        }
+        for(int i = NUMBERS; i<NUMBERS+STARS;i++){
+            if (key[i]>12 ||key[i]<1)
+            invalid = true;
+        }
+        if(key[key.length-2]==key[key.length-1])
+        invalid = true;
+        return invalid;
     }
     // Return current key array
     private int[] getKey(){
-
+        int [] key = new int[7];
         for(int i = 0;numIte.hasNextInt();i++){
             key[i]=numIte.nextInt();
         }
         for(int i = 0;starIte.hasNextInt();i++){
-            key[i+5]=starIte.nextInt();
+            key[i+NUMBERS]=starIte.nextInt();
         }
         numIte.reinitialize();
         starIte.reinitialize();
@@ -66,17 +83,17 @@ class FCTMil{
     }
     // Takes in an int[] with the correct key and another one with the placed bet and outputsan int with the prize level, or 0 if theres is no prize
     private int prize(int[] key,int[] bet){
-        hitNums = 0;
-        hitStars = 0;
-        for(int i = 0;i<5;i++){
-            for(int a = 0;a<5;a++){
+        int hitNums = 0;
+        int hitStars = 0;
+        for(int i = 0;i<NUMBERS;i++){
+            for(int a = 0;a<NUMBERS;a++){
                 if(key[a] == bet[i]){
                     hitNums++;
                 }
             }
         }
-        for(int i = 5;i<7;i++){
-            for(int a = 5;a<7;a++){
+        for(int i = NUMBERS;i<NUMBERS + STARS;i++){
+            for(int a = NUMBERS;a<NUMBERS + STARS;a++){
                 if(key[a] == bet[i]){
                     hitStars++;
                 }
@@ -139,24 +156,35 @@ class FCTMil{
             percent[i]=prizePool*percent[i]*0.01/winnerArray[i];
         }
         //System.out.println(Arrays.toString(percent));
+
         for (int i = 0;winnerArray.length>i;i++){
             if(percent[i]!=1/0f){
                 formattedNumber = String.format("%.2f",percent[i]).replaceAll(",",".");
                 // Nivel: 1 Jogadores: 999 Valor premio: 999999,99 Euros
-                exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + " Valor premio: " + formattedNumber+ " Euros \n";
+                exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + " Valor premio: " + formattedNumber+ " Euros\n";
             }else{
                 exitString += "Nivel: " + (i+1) + " Jogadores: " + winnerArray[i] + "\n";
             }
             
         }
+        // Change remaining cash money
         for (int i=0; i<percent.length;i++){
             if (percent[i]!=1/0f)
-            prizePool -= percent[i];
+            prizePool -= percent[i]*winnerArray[i];
         }
+        if (prizePool<0){
+            prizePool = 0d;
+        }
+
         formattedNumber = String.format("%.2f",prizePool).replaceAll(",",".");
-        exitString += "Valor acumulado: " + formattedNumber +" Euros. Ate a proxima\n";
+        exitString += "Valor acumulado: " + formattedNumber+" Euros\n";
         //System.out.println("exitString: " + exitString);
         return exitString;
+    }
+    public String bye(){
+        // Valor acumulado: 0.00 Euros. Ate a proxima.
+        
+        return "Valor acumulado: "+String.format("%.2f",prizePool).replaceAll(",",".")+" Euros. Ate a proxima.";
     }
     // Game state operators
     public boolean getGameState(){
@@ -170,5 +198,8 @@ class FCTMil{
     }
     public void falseMenu(){
         inMenu = false;
+    }
+    public Double getprizepool(){
+        return prizePool;
     }
 }

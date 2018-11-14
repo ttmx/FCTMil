@@ -9,7 +9,6 @@ class Main{
     private static final String AJUDA = "ajuda";
     private static final String NOVOJOGO = "novo";
     private static final String FIM = "fim";
-    
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         FCTMil milObj = new FCTMil();
@@ -27,10 +26,12 @@ class Main{
                     break;
                 case NOVOJOGO:gameStart(scan, milObj);
                     break;
-                default: 
+                default:
+                    scan.nextLine();
                     System.out.println("Comando inexistente.");
                     break;
             }
+            
         }
     }
     //Aqui escolhemos o que fazer com os comandos inseridos na consola quando fora do um jogo
@@ -38,20 +39,26 @@ class Main{
         while(milObj.getGameState()){
             System.out.print("FCTMILHOES> ");
             String command = scan.next();
+            
             switch(command.toLowerCase()){
                 case FIM:
+                    scan.nextLine();
                     gameEnd(scan,milObj);
                     break;
                 case JOGAR:
                     gamePlay(scan,milObj);
+                    scan.nextLine();
                     break;
                 case AJUDA:
+                    scan.nextLine();
                     gameHelp(scan,milObj);
                     break;
                 default:
+                    scan.nextLine();
                     System.out.println("Comando inexistente.");
                     break;
             }
+            
         }
     }
     //Funcoes de interface
@@ -60,7 +67,7 @@ class Main{
         System.out.println(NOVOJOGO +" - Novo jogo dando um valor inicial\n"+ SAIR +" - Termina a execucao do programa\n"+ AJUDA +" - Mostra os comandos existentes");
     }
     public static void mainLeave(Scanner scan, FCTMil milObj){
-        
+        System.out.println(milObj.bye());
         milObj.falseMenu();
     }
     public static void gameEnd(Scanner scan, FCTMil milObj){
@@ -69,10 +76,12 @@ class Main{
     }
     public static void gameStart(Scanner scan, FCTMil milObj){
         double prizePool = scan.nextDouble();
+        if (prizePool > 0){
         milObj.newGame(prizePool);
-        System.out.print("Jogo iniciado. Valor do premio: ");
-        System.out.printf("%.2f",prizePool);
-        System.out.println(" Euros.");
+        System.out.printf("Jogo iniciado. Valor do premio: %.2f Euros.\n",milObj.getprizepool());
+            }else{
+                System.out.println("Valor incorrecto.");
+            } 
         gameCommands(scan,milObj);
         
     }
@@ -82,9 +91,11 @@ class Main{
             bets[i] = scan.nextInt();
         }
         int prizeLevel = milObj.bet(bets);
-        if (prizeLevel != 0){
-            System.out.println("Obrigado pela aposta.  Premio de nivel: "+prizeLevel);
-        }else {
+        if (prizeLevel > 0){
+            System.out.println("Obrigado pela aposta. Premio de nivel: "+prizeLevel);
+        }else if(prizeLevel == -1){
+            System.out.println("Chave incorrecta.");
+        }else{
             System.out.println("Obrigado pela aposta.");
         }
     }

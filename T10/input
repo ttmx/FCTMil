@@ -1,0 +1,93 @@
+ajuda
+novo 10000
+joga 3 6 29 41 10 2 3
+joga 2 4 10 92 4 1 12
+joga 18 29 17 12 9 10 8
+joga 1 1 1 1 1 1 1
+joga 2 3 6 7 41 10 8
+sai
+fim
+novo 100
+joga 4 6 18 19 28 4 1
+joga 1 4 9 29 18 4 6
+sai
+fim
+novo 500
+joga 1 2 39 12 32 4 10
+joga 1 2 48 49 28 4 10
+joga 1 10 48 49 28 4 6
+joga 1 10 12 49 28 4 6
+sai
+fim
+novo 300
+joga 1 2 39 12 32 4 10
+joga 1 2 48 49 28 4 10
+joga 1 10 48 49 28 4 6
+joga 1 10 12 49 28 4 6
+sai
+fim
+novo 400
+fim
+novo 230
+joga 15 4 21 32 11 7 6
+joga 15 4 21 32 11 7 1
+joga 15 4 21 32 11 2 1
+joga 15 4 27 32 11 7 6
+joga 15 4 27 32 11 7 4
+joga 15 4 27 32 11 5 4
+joga 13 7 21 32 11 7 6
+joga 13 7 21 32 11 7 4
+joga 13 7 21 32 11 5 4
+joga 15 4 20 31 10 7 6
+joga 15 4 20 31 10 7 4
+joga 15 4 20 31 10 5 4
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+joga 15 3 20 31 10 7 6
+sai
+fim
+novo 1000
+joga 56 10 29 87 91 0 9
+fim
+novo 100
+joga 6 7 28 50 14 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+joga 4 1 9 8 7 5 8
+fim
+novo 1000
+joga 1 5 30 10 10 9 10
+joga 1 5 30 10 10 9 10
+joga 1 5 30 10 10 9 10
+joga 1 5 30 10 10 9 10
+joga 1 5 30 10 10 9 10
+joga 1 5 30 10 10 9 10
+joga 10 10 29 50 12 13 13
+fim
+novo 300
+joga 4 6 29 31 21 1 12
+joga 4 1 12 13 43 1 12
+joga 5 6 1 2 5 1 12
+fim
+novo 1200
+joga 4 5 28 11 50 5 4
+joga 3 1 2 4 5 4 5 4
+joga 11 28 5 4 4 5 4
+fim
+fim
+novo 100
+joga 4 6 18 19 28 4 1
+joga 4 8 18 44 13 4 6
+joga 1 4 9 29 18 4 6
+fim
+sai
